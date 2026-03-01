@@ -2,40 +2,26 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse, JSONResponse
 from models import User, UserWithAge, Feedback, FeedbackStrict
 
-# =============================================================
-# Задание 1.1 — базовое приложение FastAPI
-# Запуск: uvicorn app:app --reload
-# =============================================================
 
 app = FastAPI()
 
-# Задание 1.1 — корневой маршрут
 @app.get("/")
 def root():
     return {"message": "Добро пожаловать в моё приложение FastAPI!"}
 
 
-# =============================================================
-# Задание 1.2 — возврат HTML-страницы
-# =============================================================
 
 @app.get("/html", response_class=FileResponse)
 def get_html():
     return FileResponse("index.html")
 
 
-# =============================================================
-# Задание 1.3 — POST /calculate, возвращает сумму двух чисел
-# =============================================================
 
 @app.post("/calculate")
 def calculate(num1: float, num2: float):
     return {"result": num1 + num2}
 
 
-# =============================================================
-# Задание 1.4 — GET /users, возвращает данные пользователя
-# =============================================================
 
 current_user = User(id=1, name="Григорий Костин")
 
@@ -44,9 +30,6 @@ def get_user():
     return current_user
 
 
-# =============================================================
-# Задание 1.5 — POST /user, проверяет совершеннолетие
-# =============================================================
 
 @app.post("/user")
 def check_adult(user: UserWithAge):
@@ -57,9 +40,6 @@ def check_adult(user: UserWithAge):
     }
 
 
-# =============================================================
-# Задание 2.1 — POST /feedback, сохраняет отзыв
-# =============================================================
 
 feedbacks_basic: list[dict] = []
 
@@ -69,9 +49,6 @@ def receive_feedback(feedback: Feedback):
     return {"message": f"Feedback received. Thank you, {feedback.name}."}
 
 
-# =============================================================
-# Задание 2.2 — POST /feedback/strict, с валидацией и запретом слов
-# =============================================================
 
 feedbacks_strict: list[dict] = []
 
